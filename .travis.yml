@@ -3,6 +3,7 @@ sudo: required
 dist: trusty
 addons:
   apt:
+    update: true
     sources:
     - llvm-toolchain-trusty-6.0
     - ubuntu-toolchain-r-test
@@ -16,7 +17,8 @@ compiler:
   - clang
   
 install:
-  - pip install conan
+  - sudo pip install --upgrade pip
+  - sudo pip install conan
   - conan user
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
   - sudo apt install llvm
