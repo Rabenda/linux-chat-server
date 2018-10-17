@@ -1,6 +1,8 @@
 language: cpp
 sudo: required
 dist: trusty
+python:
+  - "3.6"
 addons:
   apt:
     update: true
@@ -17,9 +19,6 @@ compiler:
   - clang
   
 install:
-  - sudo pip install --upgrade pip
-  - sudo pip install conan
-  - conan user
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
   - sudo apt install llvm
   - |
@@ -31,8 +30,13 @@ install:
       export PATH=${DEPS_DIR}/cmake/bin:${PATH}
     fi
 script:
+  - python3 -m venv venv
+  - source venv/bin/activate
+  - pip install conan
+  - conan user
   - conan install . -s build_type=Release
   - mkdir build
   - cd build
   - cmake ..
   - make -j4
+  - deactivate
