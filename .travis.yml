@@ -3,7 +3,6 @@ sudo: required
 dist: trusty
 addons:
   apt:
-    update: true
     sources:
     - llvm-toolchain-trusty-6.0
     - ubuntu-toolchain-r-test
@@ -17,11 +16,8 @@ compiler:
   - clang
   
 install:
-  - sudo pip install --upgrade pip
-  - sudo pip install conan
-  - conan user
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
-  - sudo apt install llvm
+  - sudo apt install llvm python-virtualenv
   - |
     if [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
       DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
@@ -31,8 +27,13 @@ install:
       export PATH=${DEPS_DIR}/cmake/bin:${PATH}
     fi
 script:
+  - virtualenv venv
+  - source venv/bin/activate
+  - pip install conan
+  - conan user
   - conan install . -s build_type=Release
   - mkdir build
   - cd build
   - cmake ..
   - make -j4
+  - deactivate
