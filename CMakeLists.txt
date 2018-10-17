@@ -7,8 +7,8 @@ message("optional: -std=c++11")
 include(${CMAKE_SOURCE_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-find_package(Boost COMPONENTS system REQUIRED)
-
+find_package(Boost COMPONENTS system regex REQUIRED)
+find_package(OpenSSL)
 message(${CMAKE_INCLUDE_PATH})
 
 set(SOURCES_FILES "main.cpp")
