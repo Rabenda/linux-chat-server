@@ -1,0 +1,36 @@
+language: cpp
+sudo: required
+dist: trusty
+addons:
+  apt:
+    sources:
+    - llvm-toolchain-trusty-6.0
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-8
+    - g++-8
+    - clang-6.0
+env: 
+compiler:
+  - gcc
+  - clang
+  
+install:
+  - pip install conan
+  - conan user
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+  - sudo apt install llvm
+  - |
+    if [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
+      DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
+      CMAKE_URL="https://cmake.org/files/v3.12/cmake-3.12.3-Linux-x86_64.tar.gz"
+      mkdir -p ${DEPS_DIR}/cmake
+      travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C ${DEPS_DIR}/cmake
+      export PATH=${DEPS_DIR}/cmake/bin:${PATH}
+    fi
+script:
+  - conan install . -s build_type=Release
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make -j4
