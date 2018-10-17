@@ -5,7 +5,6 @@ python:
   - "3.6"
 addons:
   apt:
-    update: true
     sources:
     - llvm-toolchain-trusty-6.0
     - ubuntu-toolchain-r-test
@@ -20,7 +19,7 @@ compiler:
   
 install:
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
-  - sudo apt install llvm
+  - sudo apt install llvm python3-venv
   - |
     if [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
       DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
