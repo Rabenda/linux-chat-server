@@ -9,6 +9,7 @@ cmake
 
 [options]
 boost:shared=True
+boost:without_coroutine=True
 bzip2:shared=True
 zlib:shared=True
 OpenSSL:shared=True
