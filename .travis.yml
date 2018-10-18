@@ -1,37 +1,71 @@
 language: cpp
 sudo: required
-dist: trusty
+matrix:
+  include:
+    # works on Trusty with gcc
+    - os: linux
+      dist: trusty
+      compiler: gcc
+      env: MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+    # works on Trusty with clang
+    - os: linux
+      dist: trusty
+      compiler: clang
+      env: MATRIX_EVAL="CC=clang && CXX=clang++"
+    # works on macOS with gcc
+    - os: osx
+      osx_image: xcode10
+      compiler: gcc
+      env: MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+    # works on macOS with clang
+    - os: osx
+      osx_image: xcode10
+      compiler: clang
+      env: MATRIX_EVAL="CC=clang && CXX=clang++"
+
 addons:
   apt:
     sources:
-    - llvm-toolchain-trusty-6.0
-    - ubuntu-toolchain-r-test
+      - llvm-toolchain-trusty-7
+      - ubuntu-toolchain-r-test
     packages:
-    - gcc-8
-    - g++-8
-    - clang-6.0
-env: 
-compiler:
-  - gcc
-  - clang
-  
+      - gcc-8
+      - g++-8
+      - clang-7
+
 install:
-  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
-  - sudo apt install llvm python-virtualenv
   - |
     if [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
+      sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+      sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-7 100
+      sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 100
+      sudo apt install llvm python-virtualenv
       DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
       CMAKE_URL="https://cmake.org/files/v3.12/cmake-3.12.3-Linux-x86_64.tar.gz"
       mkdir -p ${DEPS_DIR}/cmake
       travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C ${DEPS_DIR}/cmake
       export PATH=${DEPS_DIR}/cmake/bin:${PATH}
     fi
+  - |
+    if [[ ${TRAVIS_OS_NAME} == "osx" ]]; then
+      brew update
+      brew cask uninstall oclint
+      brew install gcc@8
+      brew upgrade cmake
+      pip install virtualenv
+    fi
+
 script:
+  - eval "${MATRIX_EVAL}"
   - virtualenv venv
   - source venv/bin/activate
   - pip install conan
-  - conan user
-  - conan install . -s build_type=Release
+  - |
+    if [[ ${CC} == "gcc-8" ]]; then
+      conan install . -s build_type=Release --build boost --build missing --settings compiler.libcxx=libstdc++11
+    else
+      conan install . -s build_type=Release --build boost --build missing 
+    fi
   - mkdir build
   - cd build
   - cmake ..
