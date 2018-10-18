@@ -2,32 +2,32 @@ language: cpp
 
 matrix:
   include:
-    # works on Trusty
-    - os: linux
-      sudo: required
-      dist: trusty
-      addons:
-      apt:
-        sources:
-          - llvm-toolchain-trusty-7.0
-          - ubuntu-toolchain-r-test
-        packages:
-          - gcc-8
-          - g++-8
-          - clang-7.0
-      env: 
+  # works on Trusty
+  - os: linux
+    sudo: required
+    dist: trusty
+    addons:
+    apt:
+      sources:
+        - llvm-toolchain-trusty-7.0
+        - ubuntu-toolchain-r-test
+      packages:
+        - gcc-8
+        - g++-8
+        - clang-7.0
+    env: 
       compiler:
         - gcc
         - clang
-    # works on macOS      
-    - os: osx
-      sudo: false
-      osx_image: xcode10
-      env: 
-        - MATRIX_EVAL="brew install gcc-8 && CC=gcc-8 && CXX=g++-8"
-        compiler:
-          - gcc
-          - clang
+  # works on macOS      
+  - os: osx
+    sudo: false
+    osx_image: xcode10
+    env: 
+      - MATRIX_EVAL="brew install gcc-8 && CC=gcc-8 && CXX=g++-8"
+      compiler:
+        - gcc
+        - clang
 
 install:
   - |
