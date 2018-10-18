@@ -58,8 +58,10 @@ script:
   - virtualenv venv
   - source venv/bin/activate
   - pip install conan
-  - conan user
-  - sed -i 's/libstdc++/libstdc++11/g' ~/.conan/profiles/default
+  - |
+    if [[ `conan profile get settings.compiler default` == "gcc" ]]; then
+      conan profile update settings.compiler.libcxx=libstdc++11 default
+    fi
   - conan install . -s build_type=Release --build missing
   - mkdir build
   - cd build
