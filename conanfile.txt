@@ -2,11 +2,14 @@
 boost/1.68.0@conan/stable
 bzip2/1.0.6@conan/stable
 zlib/1.2.11@conan/stable
+OpenSSL/1.0.2p@conan/stable
 
 [generators]
 cmake
 
 [options]
 boost:shared=True
+boost:without_coroutine=True
 bzip2:shared=True
 zlib:shared=True
+OpenSSL:shared=True
