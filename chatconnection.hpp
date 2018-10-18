@@ -11,6 +11,8 @@ class ChatConnection:
         public std::enable_shared_from_this<ChatConnection> {
 public:
     explicit ChatConnection(io_service& service);
+
+    tcp::socket& getSocket();
 private:
     tcp::socket socket;
 };
