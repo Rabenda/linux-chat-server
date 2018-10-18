@@ -11,6 +11,8 @@ find_package(Boost COMPONENTS system regex REQUIRED)
 find_package(OpenSSL)
 message(${CMAKE_INCLUDE_PATH})
 
-set(SOURCES_FILES "main.cpp")
-add_executable(${PROJECT_NAME} ${SOURCES_FILES})
+set(HEADER_FILES "chatserver.hpp" "chatconnection.hpp")
+set(SOURCES_FILES "main.cpp" "chatserver.cpp" "chatconnection.cpp")
+
+add_executable(${PROJECT_NAME} ${SOURCES_FILES} ${HEADER_FILES})
 target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS})
