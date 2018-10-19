@@ -10,6 +10,10 @@ cmake
 [options]
 boost:shared=True
 boost:without_coroutine=True
+boost:without_python=True
+boost:without_test=True
+boost:without_type_erasure=True
+boost:without_wave=True
 bzip2:shared=True
 zlib:shared=True
 OpenSSL:shared=True
