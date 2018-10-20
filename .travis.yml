@@ -65,6 +65,7 @@ script:
   - virtualenv venv
   - source venv/bin/activate
   - pip install conan
+  - conan remote update conan-center https://conan.bintray.com False
   - |
     if [[ ${CC} == "gcc-8" ]]; then
       conan install . -s build_type=Release --build boost --build missing --settings compiler.libcxx=libstdc++11
