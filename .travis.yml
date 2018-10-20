@@ -39,8 +39,6 @@ install:
     if [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
       #sudo apt update -y
       #sudo apt upgrade -y
-      sudo update-ca-trust force-enable
-      sudo update-ca-certificates
       sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
       sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-7 60 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-7
       sudo apt install llvm python-virtualenv -y
@@ -65,7 +63,6 @@ script:
   - virtualenv venv
   - source venv/bin/activate
   - pip install conan
-  - conan remote update conan-center https://conan.bintray.com False
   - |
     if [[ ${CC} == "gcc-8" ]]; then
       conan install . -s build_type=Release --build boost --build missing --settings compiler.libcxx=libstdc++11
