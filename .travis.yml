@@ -39,6 +39,7 @@ install:
     if [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
       #sudo apt update -y
       #sudo apt upgrade -y
+      sudo update-ca-trust force-enable
       sudo update-ca-certificates
       sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
       sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-7 60 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-7
