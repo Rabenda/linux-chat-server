@@ -8,9 +8,10 @@ matrix:
       compiler: gcc
       env: MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
     # works on Trusty with clang
-#    - os: linux
-#      dist: trusty
-#      compiler: clang
+    - os: linux
+      dist: trusty
+      compiler: clang
+      env: MATRIX_EVAL="CC=clang && CXX=clang++"
 #      env: MATRIX_EVAL="CC=clang-7 && CXX=clang++-7"
     # works on macOS with gcc
     - os: osx
