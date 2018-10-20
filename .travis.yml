@@ -66,9 +66,9 @@ script:
   - pip install conan
   - |
     if [[ ${CC} == "gcc-8" ]]; then
-      conan install . -s build_type=Release --build missing --settings compiler.libcxx=libstdc++11
+      conan install . -s build_type=Release --build missing --ssl-verify=False --settings compiler.libcxx=libstdc++11
     else
-      conan install . -s build_type=Release --build missing 
+      conan install . -s build_type=Release --build missing --ssl-verify=False
     fi
   - mkdir build
   - cd build
