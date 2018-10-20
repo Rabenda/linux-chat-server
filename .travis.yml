@@ -52,6 +52,7 @@ install:
       brew cask uninstall oclint
       brew install gcc@8 llvm@7
       brew upgrade cmake
+      export PATH="/usr/local/opt/llvm/bin:$PATH"
       pip install virtualenv
     fi
 
