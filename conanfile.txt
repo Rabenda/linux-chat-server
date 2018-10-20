@@ -1,5 +1,7 @@
 [requires]
 boost/1.68.0@conan/stable
+bzip2/1.0.6@conan/stable
+zlib/1.2.11@conan/stable
 OpenSSL/1.0.2p@conan/stable
 
 [generators]
@@ -12,4 +14,6 @@ boost:without_python=True
 boost:without_test=True
 boost:without_type_erasure=True
 boost:without_wave=True
+bzip2:shared=True
+zlib:shared=True
 OpenSSL:shared=True
