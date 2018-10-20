@@ -15,5 +15,5 @@ boost:without_test=True
 boost:without_type_erasure=True
 boost:without_wave=True
 bzip2:shared=True
-zlib:shared=True
+zlib:shared=False
 OpenSSL:shared=True
