@@ -1,4 +1,5 @@
 [requires]
+zlib/1.2.11@conan/testing
 boost/1.68.0@conan/stable
 bzip2/1.0.6@conan/stable
 OpenSSL/1.0.2p@conan/stable
@@ -7,6 +8,7 @@ OpenSSL/1.0.2p@conan/stable
 cmake
 
 [options]
+zlib:shared=True
 boost:shared=True
 boost:without_coroutine=True
 boost:without_python=True
