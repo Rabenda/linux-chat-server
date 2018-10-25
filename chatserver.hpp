@@ -4,7 +4,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/asio.hpp>
 #include <boost/system/error_code.hpp>
-
+#include <stdint.h>
 #include "chatconnection.hpp"
 using boost::asio::io_service;
 using boost::asio::ip::tcp;
@@ -12,7 +12,7 @@ using boost::system::error_code;
 class ChatServer: boost::noncopyable
 {
 public:
-    explicit ChatServer(io_service& service, unsigned short port);
+    explicit ChatServer(io_service& service, uint16_t port);
 
     void start();
 private:

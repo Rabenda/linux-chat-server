@@ -1,12 +1,8 @@
-#include <iostream>
 #include <boost/asio.hpp>
-
+#include "serverconfig.hpp"
 #include "chatserver.hpp"
 
-using namespace std;
-using namespace boost::asio;
-
-#define SERVER_PORT 12412
+using boost::asio::io_service;
 
 int main()
 {

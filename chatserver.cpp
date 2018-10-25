@@ -1,7 +1,7 @@
 #include "chatserver.hpp"
 #include <boost/log/trivial.hpp>
 
-ChatServer::ChatServer(io_service& service, unsigned short port)
+ChatServer::ChatServer(io_service& service, uint16_t port)
     :service{service}, acceptor{this->service, tcp::endpoint{tcp::v4(), port}} {
 
 }
