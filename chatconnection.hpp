@@ -3,18 +3,22 @@
 
 #include <memory>
 #include <boost/asio.hpp>
+#include "chatmessage.hpp"
 
-using boost::asio::io_service;
-using boost::asio::ip::tcp;
+class ChatServer;
 
-class ChatConnection:
-        public std::enable_shared_from_this<ChatConnection> {
+class ChatConnection: public std::enable_shared_from_this<ChatConnection> {
 public:
-    explicit ChatConnection(io_service& service);
+    explicit ChatConnection(boost::asio::io_service& service, ChatServer* server);
 
-    tcp::socket& getSocket();
+    boost::asio::ip::tcp::socket& getSocket();
+
+    void start();
 private:
-    tcp::socket socket;
+    boost::asio::ip::tcp::socket socket;
+    ChatServer* server;
+    ChatMessage message;
+
 };
 
 #endif // CHATCONNECTION_HPP

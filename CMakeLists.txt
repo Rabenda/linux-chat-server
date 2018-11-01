@@ -14,10 +14,12 @@ message(${CMAKE_INCLUDE_PATH})
 set(HEADER_FILES
     "serverconfig.hpp"
     "chatserver.hpp"
+    "chatmessage.hpp"
     "chatconnection.hpp")
 set(SOURCES_FILES
     "main.cpp"
     "chatserver.cpp"
+    "chatmessage.cpp"
     "chatconnection.cpp")
 
 add_executable(${PROJECT_NAME} ${SOURCES_FILES} ${HEADER_FILES})
