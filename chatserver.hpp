@@ -7,7 +7,10 @@
 #include <cstdint>
 #include <memory>
 #include <set>
+#include <queue>
+#include <mutex>
 #include "chatconnection.hpp"
+#include "chatmessage.hpp"
 using boost::asio::io_service;
 using boost::asio::ip::tcp;
 using boost::system::error_code;
@@ -22,6 +25,7 @@ public:
     void start();
     void join(shared_ptr<ChatConnection> connection);
     void leave(shared_ptr<ChatConnection> connection);
+    void sendMessage(ChatMessage message);
 private:
     io_service& service;
     tcp::acceptor acceptor;

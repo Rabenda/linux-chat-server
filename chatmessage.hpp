@@ -10,6 +10,7 @@ class ChatMessage
 
 public:
     ChatMessage();
+     ChatMessage(char* messageBuffer, size_t messageSize);
 
     void encodeJson(boost::property_tree::ptree& root);
     boost::property_tree::ptree decodeJson();

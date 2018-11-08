@@ -34,3 +34,7 @@ void ChatServer::leave(shared_ptr<ChatConnection> connection) {
     auto removeConnectionIterator = connectionList.find(connection);
     connectionList.erase(removeConnectionIterator);
 }
+
+void ChatServer::sendMessage(ChatMessage message) {
+
+}
